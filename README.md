@@ -1,2 +1,2 @@
 # ZDDSKudos
-kudos-functionality copybasted from main bot
+easy and simple
