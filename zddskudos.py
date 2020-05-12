@@ -15,21 +15,9 @@ async def on_ready():
     print("Ready!")
     for s in settings.client.guilds:
         print(" - %s (%s)" % (s.name, s.id))
-        roles = s.roles
-
-    for allRoles in roles:
-        if allRoles.id == 694500490142285825:
-            role = allRoles
 
     # Set Game and status
     await settings.client.change_presence(status=discord.Status.online, activity=discord.Game(name='kudos++'))
-
-    while True:
-        randomR = random.randint(1,255)
-        randomG = random.randint(1,255)
-        randomB = random.randint(1,255)
-        newColor = discord.Color.from_rgb(randomR, randomG, randomB)
-        await role.edit(colour=newColor)
 
 
 @settings.client.event
