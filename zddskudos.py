@@ -2,6 +2,8 @@ import discord
 import SECRETS
 import settings
 import kudos_handler
+import random
+import extras
 
 
 ### This is executed as soon as the bot is started!
@@ -13,9 +15,37 @@ async def on_ready():
     print("Ready!")
     for s in settings.client.guilds:
         print(" - %s (%s)" % (s.name, s.id))
+        roles = s.roles
+
+    for allRoles in roles:
+        if allRoles.id == 694500490142285825:
+            role = allRoles
 
     # Set Game and status
     await settings.client.change_presence(status=discord.Status.online, activity=discord.Game(name='kudos++'))
+
+    while True:
+        randomR = random.randint(1,255)
+        randomG = random.randint(1,255)
+        randomB = random.randint(1,255)
+        newColor = discord.Color.from_rgb(randomR, randomG, randomB)
+        await role.edit(colour=newColor)
+
+
+@settings.client.event
+async def on_member_join(member):
+    # log-channel message
+    channel = settings.client.get_channel(694419632467214410)
+    await extras.send_msg(channel, "{} joined the server!".format(member.name))
+
+
+### This is executed if someone leaves the server!
+# -> sending status-message to log-channel
+@settings.client.event
+async def on_member_remove(member):
+    # log-channel message
+    channel = settings.client.get_channel(694419632467214410)
+    await extras.send_msg(channel, "{} left the server!".format(member.display_name))
 
 
 ### This is executed on a new incoming message!
